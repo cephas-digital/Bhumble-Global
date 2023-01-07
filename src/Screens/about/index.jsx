@@ -30,7 +30,7 @@ const About = () => {
           <div className="py-5 d-flex flex-column">
             <h2 className="textColor mb-3">About us</h2>
             <p data-aos="zoom-in" data-aos-delay="1000" className="fontReduce">
-            Ipro Enterprises, is a convenient platform for purchasing data and airtime, as well as obtaining cable and Waec/Neco subscriptions. We offer easy and rapid airtime top-up services at competitive rates, and we are committed to delivering prompt and timely service for all transactions. Our well-trained customer support team is available 24/7 to assist you with any issues or questions you may have. We strive to provide the best value for every transaction and make it easy for you to access the services you need.
+            Bhumble Global Enterprises, is a convenient platform for purchasing data and airtime, as well as obtaining cable and Sales of laptop. We offer easy and rapid airtime top-up services at competitive rates, and we are committed to delivering prompt and timely service for all transactions. Our well-trained customer support team is available 24/7 to assist you with any issues or questions you may have. We strive to provide the best value for every transaction and make it easy for you to access the services you need.
             </p>
           </div>
         </div>

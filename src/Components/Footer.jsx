@@ -1,5 +1,5 @@
 import React from "react";
-// import logoLight from "../Assets/Ipro1.png";
+// import logoLight from "../Assets/Bhumble Global1.png";
 import { Link } from "react-router-dom";
 import {
   FaPhone,
@@ -31,15 +31,15 @@ export let socials = [
 ];
 
 export let details = [
-  { icon: <FaPhone />, text: "+2347069465474", type: "tel" },
+  { icon: <FaPhone />, text: "+2348101595761", type: "tel" },
   {
     icon: <FaEnvelopeSquare />,
-    text: "vreshyusuf@gmail.com",
+    text: "bhumbleglobalenterprise@gmail.com",
     type: "mail",
   },
   {
     icon: <FaMapMarker />,
-    text: "Ipro Entrprrises",
+    text: "Bhumble Global Entrprrises",
     type: "address",
   },
 ];
@@ -70,8 +70,8 @@ const Footer = () => {
             >
               {/* <img src={logoLight} alt="Honourworld" className="logo me-1 logo-img-size" /> */}
               <div className="d-none d-md-block">
-							<p className="text-capitalize text-white m-0">Ipro</p>
-							<p className="text-capitalize site-secondary-color m-0">Solutions</p>
+							<p className="text-capitalize text-white m-0">Bhumble Global</p>
+							<p className="text-capitalize site-secondary-color m-0">Enterprises</p>
 						</div>
             </Link>
             {/* <div className="d-none d-md-block fontReduce">
@@ -188,7 +188,7 @@ const Footer = () => {
               &copy; {`${new Date().getFullYear() !== 2022 ? "2022 - " : ""}`}
               {new Date().getFullYear()}
             </span>
-            &nbsp; <span className="d-block d-lg-inline">Ipro Solutions</span>
+            &nbsp; <span className="d-block d-lg-inline">Bhumble Global Enterprises</span>
           </p>
         </div>
       </div>

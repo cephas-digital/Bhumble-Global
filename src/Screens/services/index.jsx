@@ -24,9 +24,9 @@ const Services = () => {
               data-aos-delay="1000"
               className="fontReduce  "
             >
-              Yes, we got you covered, With Ipro Solutionss Enjoy a easy and
+              Yes, we got you covered, With Bhumble Global Enterprisess Enjoy a easy and
               fast data delivery with Optimal security and also enjoy the best
-              offers and discount sales on all our products periodically.
+              offers and discount sales on all our products periodically. We also provide you with the best laptop type that meets your target
             </p>
           </div>
           <img

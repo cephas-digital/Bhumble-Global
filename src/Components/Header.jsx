@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { GlobalState } from "../Data/Context";
 import { Navbar, Collapse, Nav, NavItem } from "reactstrap";
-// import logo from "../Assets/Ipro1 (2).png";
+// import logo from "../Assets/Bhumble Global1 (2).png";
 import { FaTimes, FaBars } from "react-icons/fa";
 
 const Header = () => {
@@ -17,7 +17,7 @@ const Header = () => {
 
   useEffect(() => {
     document.title = CapitalizeFirst(
-      `Ipro Solutions ${location.pathname.split("/").join(" ").substring(1)}`
+      `Bhumble Global Enterprises ${location.pathname.split("/").join(" ").substring(1)}`
     );
   }, [location.pathname]);
 
@@ -55,10 +55,10 @@ const Header = () => {
         to="/"
         className="text-decoration-none text-dark d-flex align-items-center"
       >
-        {/* <img src={logo} alt="Ipro" className="logo me-1 logo-img-size" /> */}
+        {/* <img src={logo} alt="Bhumble Global" className="logo me-1 logo-img-size" /> */}
         <div className=" d-md-block">
-							<p className="text-capitalize site-primary-color m-0">Ipro</p>
-							<p className="text-capitalize site-secondary-color m-0">Solutions</p>
+							<p className="text-capitalize site-primary-color m-0">Bhumble Global</p>
+							<p className="text-capitalize site-secondary-color m-0">Enterprises</p>
 						</div>
      
       </Link>
