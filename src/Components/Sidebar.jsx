@@ -6,9 +6,8 @@ import logo from "../Assets/logo.png";
 import "../Styles/Sidebar.css";
 // import "../Styles/OrgAuth.css";
 import { Navbar } from "reactstrap";
-import logo2 from "../Assets/logo.png";
 import { BsChevronRight } from "react-icons/bs";
-import { FaCircle } from "react-icons/fa";
+import { FaCircle, FaBars } from "react-icons/fa";
 
 export let CapitalizeFirst = text => {
 	return text.replace(/\b\w/g, m => {
@@ -20,26 +19,34 @@ const Sidebar = () => {
 	const {
 		sidebarList,
 		sidebarListUser,
-		// logoutUser,
+		logoutUser,
 		auth,
-		getSetTempUser,
+		// getSetTempUser,
 	} = useContext(GlobalState);
 	let location = useLocation(),
 		navigate = useNavigate(),
 		[sidebarState, setSidebarState] = useState(null);
 
 	useEffect(() => {
-		if (auth?.temp_auth === "agent") {
+		if (auth?.user?.privilege === "agent") {
 			setSidebarState(sidebarList);
-		} else if (auth?.temp_auth === "user") {
+		} else if (auth?.user?.privilege === "user") {
 			setSidebarState(sidebarListUser);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [auth?.temp_auth]);
+	}, [auth?.user?.privilege]);
+
+	let toggleClose = () => {
+		let sidebar = document?.body?.querySelector(".sidebar");
+		if (!sidebar?.classList.contains("close")) {
+			sidebar?.classList?.toggle("close");
+		}
+	};
 
 	let menuList = (item, index) => (
 		<li
 			title={item?.name}
+			onClick={toggleClose}
 			className={`nav-link position-relative ${
 				location.pathname.includes(item.url) ? "headerActive" : ""
 			} ${item?.type === "button" ? "button" : ""}`}
@@ -90,13 +97,13 @@ const Sidebar = () => {
 
 	let handleLogOut = async e => {
 		e.preventDefault();
-		await getSetTempUser("no_auth");
+		await logoutUser();
 		navigate("/");
 	};
 
 	useEffect(() => {
 		document.title = CapitalizeFirst(
-			`Honourworld Dashboard ${location.pathname
+			`Bhumble Global Enterprises Dashboard ${location.pathname
 				.split("/")
 				.join(" ")
 				.substring(1)}`
@@ -118,7 +125,7 @@ const Sidebar = () => {
 					<div className="image-text">
 						<Link to={"/"}>
 							<span className="image">
-								<img src={logo} alt="logo" className="rounded" />
+								<img src={logo} alt="logo" className="rounded logo" />
 							</span>
 						</Link>
 						{/* <div className="text header-text">
@@ -128,6 +135,10 @@ const Sidebar = () => {
 					</div>
 					<BsChevronRight
 						className="toggle toggleIcon icon myCursor d-none d-md-block"
+						onClick={handleToggle}
+					/>
+					<FaBars
+						className="toggle toggleIcon icon myCursor d-md-none toggleBar"
 						onClick={handleToggle}
 					/>
 				</header>
@@ -143,7 +154,7 @@ const Sidebar = () => {
 							className={`nav-link ${
 								location.pathname.includes("/settings") ? "headerActive" : ""
 							}`}>
-							<Link to="/settings">
+							<Link onClick={toggleClose} to="/settings">
 								<BiCog className="icon" size={24} />
 								<span className="text nav-text">Settings</span>
 							</Link>
@@ -176,7 +187,7 @@ export const Header = () => {
 
 	useEffect(() => {
 		document.title = CapitalizeFirst(
-			`Honourworld Dashboard ${location.pathname
+			`Bhumble Global Enterprises Dashboard ${location.pathname
 				.split("/")
 				.join(" ")
 				.substring(1)}`
@@ -193,7 +204,15 @@ export const Header = () => {
 			}`}
 			light>
 			<Link to="/">
-				<img src={logo2} alt="Honourworld" className="logo" />
+				{/* <img src={logo} alt="Bhumble Global" className="logo me-1 logo-img-size" /> */}
+				<div className=" d-md-block">
+					<p className="text-capitalize site-primary-color m-0">
+						Bhumble Global
+					</p>
+					<p className="text-capitalize site-secondary-color m-0">
+						Enterprises
+					</p>
+				</div>
 			</Link>
 		</Navbar>
 	);
