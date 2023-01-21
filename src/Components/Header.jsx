@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { GlobalState } from "../Data/Context";
 import { Navbar, Collapse, Nav, NavItem } from "reactstrap";
-// import logo from "../Assets/logo.png";
+// import logo from "../Assets/logo2.jpeg";
 import { FaTimes, FaBars } from "react-icons/fa";
 
 const Header = () => {
@@ -47,7 +47,7 @@ const Header = () => {
 
 	return (
 		<Navbar
-			expand="lg"
+			expand="md"
 			sticky="top"
 			className={`container-fluid px-3 px-lg-5 header bg-white headerScroll py-lg-4 py-1 w-100 ${
 				isShadow ? "shadow" : ""
@@ -56,11 +56,13 @@ const Header = () => {
 			<Link
 				to="/"
 				className="text-decoration-none text-dark d-flex align-items-center">
-				{/* <img src={logo} alt="Bhumble Global" className="logo me-1 logo-img-size" /> */}
-				<div className=" d-md-block">
-					<p className="text-capitalize site-primary-color m-0">
-						Bhumble Global
-					</p>
+				{/* <img
+					src={logo}
+					alt="logo"
+					className="logo logo-height kemtech-logo me-1"
+				/> */}
+				<div className="">
+					<p className="text-capitalize text-primary1 m-0">Bhumble Global</p>
 					<p className="text-capitalize site-secondary-color m-0">
 						Enterprises
 					</p>
