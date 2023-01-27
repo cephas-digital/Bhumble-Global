@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { useValidation } from "../Data/useFetch";
 import LoadMore, { BottomTab } from "./LoadMore";
 import { ModalComponents } from "./DefaultHeader";
+import { BiCheck, BiDotsHorizontalRounded } from "react-icons/bi";
+import { HiThumbDown } from "react-icons/hi";
 
 const MainConvert = () => {
 	let { setStateName, auth } = useContext(GlobalState);
@@ -43,7 +45,6 @@ const ConvertTop = () => {
 			amount: "",
 			network: "",
 			send_to: "",
-			send_type: "number",
 		},
 		[returnValue, setReturnValue] = useState(""),
 		[loading, setLoading] = useState(false),
@@ -64,7 +65,9 @@ const ConvertTop = () => {
 				!state?.account_number &&
 				!state?.reference
 			)
-				return toast.info("Please provide bank name and account number", {autoClose:10000});
+				return toast.info("Please provide bank name and account number", {
+					autoClose: 10000,
+				});
 			setLoading(true);
 			await converterServices("post", "converter", state);
 			setLoading(false);
@@ -137,26 +140,8 @@ const ConvertTop = () => {
 	// console.log({ state, numbers: converter?.numbers });
 	return (
 		<>
-			{/* {validateLoading && <Loaded />} */}
 			<section className="row mx-0">
 				<form className="mt-4 col-md-7 row mx-0 g-3 g-md-5">
-					<div className="mb-3 col-md-6">
-						<label className="text-capitalize" htmlFor="network">
-							Send format
-						</label>
-						<select
-							className="form-control py-3 py-md-4 bg-transparent text-capitalize rounded20 form-select"
-							name="network"
-							placeholder="Network"
-							value={state?.send_type}
-							onChange={textChange("send_type")}
-							readOnly={validateLoading}
-							id="network">
-							<option value="">select send format</option>
-							<option value="number">Transfer</option>
-							<option value="reference">Airtime pin</option>
-						</select>
-					</div>
 					<div className="mb-3 col-md-6">
 						<label className="text-capitalize" htmlFor="network">
 							Network
@@ -177,7 +162,7 @@ const ConvertTop = () => {
 							))}
 						</select>
 					</div>
-					{state?.network && state?.send_type === "number" && (
+					{state?.network && (
 						<div className="mb-3 col-md-6">
 							<label className="text-capitalize" htmlFor="name">
 								Number to send to
@@ -193,7 +178,7 @@ const ConvertTop = () => {
 					)}
 					<div className="mb-3 col-md-6">
 						<label className="text-capitalize" htmlFor="name">
-							{state?.send_type === "number" ? "Phone number" : `Airtime pin`}
+							Phone number
 						</label>
 						<input
 							type="text"
@@ -474,6 +459,7 @@ const ConverterHistory = () => {
 	let [state, setState] = useState(null),
 		[loading, setLoading] = useState(false),
 		[isUpdate, setIsUpdate] = useState(false),
+		[isView, setIsView] = useState(false),
 		[isDecline, setIsDecline] = useState(false),
 		init = { reason: "" },
 		[data, setData] = useState(init),
@@ -545,11 +531,7 @@ const ConverterHistory = () => {
 						network{" "}
 					</div>
 					<div className="col textTrunc fontReduce fw-bold Lexend">status</div>
-					{auth?.user?.privilege === "agent" && (
-						<div className="col textTrunc fontReduce fw-bold Lexend">
-							action
-						</div>
-					)}
+					<div className="col textTrunc fontReduce fw-bold Lexend">action</div>
 				</div>
 				<div className="bg-white row mx-0">
 					{state?.map((item, index) => (
@@ -580,20 +562,27 @@ const ConverterHistory = () => {
 								}`}>
 								{item?.statusText}
 							</div>
-							{auth?.user?.privilege === "agent" && (
-								<div className="col textTrunc my-auto btn-group fontReduce2 w-100 d-block d-md-flex">
-									<button
-										onClick={() => setIsUpdate(item)}
-										className="btn  btn-success2 text-capitalize py-1 py-md-2 w-100 fontReduce2">
-										done
-									</button>
-									<button
-										onClick={() => setIsDecline(item)}
-										className="btn  btn-danger2 text-capitalize py-1 py-md-2 w-100 fontReduce2">
-										decline
-									</button>
-								</div>
-							)}
+							<div className="col textTrunc my-auto btn-group fontReduce2 w-100">
+								<button
+									onClick={() => setIsView(item)}
+									className="btn  btn-primary1 text-capitalize p-1 p-md-2 w-100 fontReduce2">
+									<BiDotsHorizontalRounded />
+								</button>
+								{auth?.user?.privilege === "agent" && (
+									<>
+										<button
+											onClick={() => setIsUpdate(item)}
+											className="btn  btn-success2 text-capitalize p-1 p-md-2 w-100 fontReduce2">
+											<BiCheck />
+										</button>
+										<button
+											onClick={() => setIsDecline(item)}
+											className="btn  btn-danger2 text-capitalize p-1 p-md-2 w-100 fontReduce2">
+											<HiThumbDown />
+										</button>
+									</>
+								)}
+							</div>
 						</div>
 					))}
 				</div>
@@ -658,6 +647,83 @@ const ConverterHistory = () => {
 								width={"w-50"}
 							/>
 						</div>
+					</div>
+				</div>
+			</ModalComponents>
+			<ModalComponents
+				title={"View full details"}
+				isOpen={isView}
+				back={() => {
+					setIsView(false);
+				}}>
+				<div className="downH2 d-flex">
+					<div className="w-100">
+						<h4 className="Lexend">Conversion details</h4>
+						<p className="text-capitalize border-bottom d-flex justify-content-between">
+							<span>Id: </span>
+							<span className="fontInherit Lexend">{isView?.item_id}</span>{" "}
+						</p>
+						<p className="text-capitalize border-bottom d-flex justify-content-between">
+							<span>Bank name: </span>
+							<span className="fontInherit Lexend">
+								{isView?.bank_name}
+							</span>{" "}
+						</p>
+						<p className="text-capitalize border-bottom d-flex justify-content-between">
+							<span>Account name: </span>
+							<span className="fontInherit Lexend">
+								{isView?.account_name}
+							</span>{" "}
+						</p>
+						<p className="text-capitalize border-bottom d-flex justify-content-between">
+							<span>Account number: </span>
+							<span className="fontInherit Lexend">
+								{isView?.account_number}
+							</span>{" "}
+						</p>
+						<p className="text-capitalize border-bottom d-flex justify-content-between">
+							<span>Reference: </span>
+							<span className="fontInherit Lexend">
+								{isView?.reference}
+							</span>{" "}
+						</p>
+						<p className="text-capitalize border-bottom d-flex justify-content-between">
+							<span>Network: </span>
+							<span className="fontInherit Lexend">{isView?.network}</span>{" "}
+						</p>
+						<p className="text-capitalize border-bottom d-flex justify-content-between">
+							<span>Amount: </span>
+							<span className="fontInherit Lexend">
+								NGN {isView?.amount ? numberWithCommas(isView?.amount) : 0}
+							</span>{" "}
+						</p>
+						<p className="text-capitalize border-bottom d-flex justify-content-between">
+							<span>Number sent to: </span>
+							<span className="fontInherit Lexend">
+								{isView?.number_sent_to}
+							</span>{" "}
+						</p>
+						<p className="text-capitalize border-bottom d-flex justify-content-between">
+							<span>Status: </span>
+							<span
+								className={`fontInherit Lexend ${
+									isView?.status
+										? "text-success"
+										: isView?.statusText === "declined"
+										? "text-danger"
+										: ""
+								}`}>
+								{isView?.statusText}
+							</span>
+						</p>
+						{isView?.statusText === "declined" && (
+							<p className="text-capitalize border-bottom d-flex justify-content-between">
+								<span>Reason: </span>
+								<span className="fontInherit Lexend">
+									{isView?.reason}
+								</span>{" "}
+							</p>
+						)}
 					</div>
 				</div>
 			</ModalComponents>
